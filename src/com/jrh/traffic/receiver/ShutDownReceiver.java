@@ -15,6 +15,5 @@ public class ShutDownReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
 		
-
 	}
 }

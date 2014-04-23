@@ -22,21 +22,20 @@ public class WifiStateReceiver extends BroadcastReceiver{
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		mAppManager = new AppManager();
-		mAppList = mAppManager.getNetworkAppMap(context);
-		
 		// TODO Auto-generated method stub
 		if (intent.getAction()
 				.equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
 			int wifistate = intent.getIntExtra(
 					WifiManager.EXTRA_WIFI_STATE,
 					WifiManager.WIFI_STATE_DISABLED);
+			mAppManager = new AppManager();
+			mAppList = mAppManager.getNetworkAppList(context);
 			if (wifistate == WifiManager.WIFI_STATE_DISABLED) {
-				// 结余本次wifi过程中 uid应用的 流量
+				// wifi关闭，结余本次wifi过程中 uid应用的 流量
 				
 			} else if (wifistate == WifiManager.WIFI_STATE_ENABLED) {
-				// 记录当前uid应用的流量
-
+				// wifi开启，记录当前uid应用的流量
+				
 			}
 		}
 	}
