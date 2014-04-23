@@ -1,17 +1,18 @@
-package com.jrh.trafficstatemanager;
+package com.jrh.traffic.model;
 
 import android.graphics.drawable.Drawable;
 
 public class AppInfo {
 
-	private Drawable img;
-	private String pkgname;
-	private String label;
-	private String alltraffic;
-	private String gprs;
-	private String wifi;
-	private String frequency;
-	private String tag;
+	private Drawable img = null;
+	private String uid = "uid";
+	private String pkgname = "pkgname";
+	private String label = "label";
+	private String alltraffic = "alltraffic";
+	private String gprs = "gprs";
+	private String wifi = "wifi";
+	private String frequency = "frequency";
+	private String tag = "tag";
 	
 	public AppInfo(){}
 
@@ -20,6 +21,14 @@ public class AppInfo {
 		this.wifi = wifi;
 		this.gprs = gprs;
 		this.alltraffic = alltraffic;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	public Drawable getImg() {

@@ -1,6 +1,9 @@
-package com.jrh.trafficstatemanager;
+package com.jrh.traffic.adapter;
 
 import java.util.List;
+
+import com.jrh.traffic.model.AppInfo;
+import com.jrh.trafficstatemanager.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -59,7 +62,7 @@ public class ListAdapter extends BaseAdapter{
 			viewHolder.label = (TextView) convertView.findViewById(R.id.label);
 			viewHolder.wifi = (TextView) convertView.findViewById(R.id.wifi);
 			viewHolder.gprs = (TextView) convertView.findViewById(R.id.gprs);
-			viewHolder.alltraffic = (TextView) convertView.findViewById(R.id.total);
+			viewHolder.alltraffic = (TextView) convertView.findViewById(R.id.alltraffic);
 			convertView.setTag(viewHolder);
 		}else{
 			viewHolder = (ViewHolder) convertView.getTag();

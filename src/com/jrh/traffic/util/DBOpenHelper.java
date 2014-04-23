@@ -1,4 +1,4 @@
-package com.jrh.trafficstatemanager;
+package com.jrh.traffic.util;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
