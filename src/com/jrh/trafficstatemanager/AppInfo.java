@@ -5,59 +5,84 @@ import android.graphics.drawable.Drawable;
 public class AppInfo {
 
 	private Drawable img;
-	private String name;
-	private String total;
+	private String pkgname;
+	private String label;
+	private String alltraffic;
 	private String gprs;
 	private String wifi;
+	private String frequency;
+	private String tag;
 	
-	public AppInfo(){
-		
-	}
+	public AppInfo(){}
 
-	public AppInfo(String name, String wifi, String gprs, String total) {
-		this.name = name;
+	public AppInfo(String label, String wifi, String gprs, String alltraffic) {
+		this.label = label;
 		this.wifi = wifi;
 		this.gprs = gprs;
-		this.total = total;
-	}
-
-	public String getGprs() {
-		return this.gprs;
+		this.alltraffic = alltraffic;
 	}
 
 	public Drawable getImg() {
-		return this.img;
+		return img;
 	}
 
-	public String getName() {
-		return this.name;
+	public void setImg(Drawable img) {
+		this.img = img;
 	}
 
-	public String getTotal() {
-		return this.total;
+	public String getPkgname() {
+		return pkgname;
+	}
+
+	public void setPkgname(String pkgname) {
+		this.pkgname = pkgname;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public String getAlltraffic() {
+		return alltraffic;
+	}
+
+	public void setAlltraffic(String alltraffic) {
+		this.alltraffic = alltraffic;
+	}
+
+	public String getGprs() {
+		return gprs;
+	}
+
+	public void setGprs(String gprs) {
+		this.gprs = gprs;
 	}
 
 	public String getWifi() {
-		return this.wifi;
+		return wifi;
 	}
 
-	public void setGprs(String paramString) {
-		this.gprs = paramString;
+	public void setWifi(String wifi) {
+		this.wifi = wifi;
 	}
 
-	public void setImg(Drawable paramDrawable) {
-		this.img = paramDrawable;
+	public String getFrequency() {
+		return frequency;
 	}
 
-	public void setName(String paramString) {
-		this.name = paramString;
+	public void setFrequency(String frequency) {
+		this.frequency = frequency;
 	}
 
-	public void setTotal(String paramString) {
-		this.total = paramString;
+	public String getTag() {
+		return tag;
 	}
 
-	public void setWifi(String paramString) {
-		this.wifi = paramString;
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 }

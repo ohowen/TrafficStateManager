@@ -56,28 +56,28 @@ public class ListAdapter extends BaseAdapter{
 			viewHolder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.sub_item, null);
 			viewHolder.img = (ImageView) convertView.findViewById(R.id.img);
-			viewHolder.name = (TextView) convertView.findViewById(R.id.name);
+			viewHolder.label = (TextView) convertView.findViewById(R.id.label);
 			viewHolder.wifi = (TextView) convertView.findViewById(R.id.wifi);
 			viewHolder.gprs = (TextView) convertView.findViewById(R.id.gprs);
-			viewHolder.total = (TextView) convertView.findViewById(R.id.total);
+			viewHolder.alltraffic = (TextView) convertView.findViewById(R.id.total);
 			convertView.setTag(viewHolder);
 		}else{
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		AppInfo appInfo = mList.get(position);
 		viewHolder.img.setImageDrawable(appInfo.getImg());
-		viewHolder.name.setText(appInfo.getName());
+		viewHolder.label.setText(appInfo.getLabel());
 		viewHolder.wifi.setText(appInfo.getWifi());
 		viewHolder.gprs.setText(appInfo.getGprs());
-		viewHolder.total.setText(appInfo.getTotal());
+		viewHolder.alltraffic.setText(appInfo.getAlltraffic());
 		return convertView;
 	}
 	
 	private static class ViewHolder{
 		ImageView img;
-		TextView name;
+		TextView label;
 		TextView wifi;
 		TextView gprs;
-		TextView total;
+		TextView alltraffic;
 	}
 }

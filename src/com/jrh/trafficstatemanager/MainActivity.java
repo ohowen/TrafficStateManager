@@ -37,6 +37,10 @@ public class MainActivity extends Activity {
 		mListView.setAdapter(mListAdapter);
 	}	
 
+	/**
+	 * Get all appInfo from database 
+	 * @return appList
+	 */
 	public List<AppInfo> getAllApps() {
 		List<AppInfo> appList = new ArrayList<AppInfo>();
 		SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
@@ -46,11 +50,18 @@ public class MainActivity extends Activity {
 			String label = cursor.getString(cursor.getColumnIndex("label"));
 			String wifi = cursor.getString(cursor.getColumnIndex("wifi"));
 			String gprs = cursor.getString(cursor.getColumnIndex("gprs"));
-			String total = cursor.getString(cursor.getColumnIndex("total"));
-			appList.add(new AppInfo(label, wifi, gprs, total));
+			String alltraffic = cursor.getString(cursor.getColumnIndex("alltraffic"));
+			appList.add(new AppInfo(label, wifi, gprs, alltraffic));
 		}
 		cursor.close();
 		return appList;
+	}
+	
+	/**
+	 * Save a specific app's traffic data to database
+	 */
+	public void saveData(){
+		
 	}
 
 	public List<AppInfo> getAppTrafficList() {
@@ -74,13 +85,13 @@ public class MainActivity extends Activity {
 						// 如果返回-1，代表不支持使用该方法，注意必须是2.2以上的
 						long rx = TrafficStats.getUidRxBytes(uId);
 						long tx = TrafficStats.getUidTxBytes(uId);
-						long total = rx + tx;
+						long all = rx + tx;
 						if (rx < 0 || tx < 0) {
 							continue;
 						} else {
 							AppInfo appInfo = new AppInfo();
-							appInfo.setName(info.applicationInfo.loadLabel(pm).toString());
-							appInfo.setTotal(Formatter.formatFileSize(this, total));
+							appInfo.setLabel(info.applicationInfo.loadLabel(pm).toString());
+							appInfo.setAlltraffic(Formatter.formatFileSize(this, all));
 							appInfos.add(appInfo);
 						}
 					}

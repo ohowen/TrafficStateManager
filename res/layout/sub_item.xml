@@ -5,7 +5,7 @@
     android:background="#FFF" >
 
     <TextView
-        android:id="@+id/total"
+        android:id="@+id/alltraffic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -23,7 +23,7 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -35,10 +35,10 @@
         android:id="@+id/gprs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/total"
-        android:layout_alignBottom="@id/total"
+        android:layout_alignBaseline="@id/alltraffic"
+        android:layout_alignBottom="@id/alltraffic"
         android:layout_marginRight="32dp"
-        android:layout_toLeftOf="@id/total"
+        android:layout_toLeftOf="@id/alltraffic"
         android:text="2g/3g" />
 
     <TextView
