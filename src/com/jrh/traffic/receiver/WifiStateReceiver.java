@@ -1,5 +1,10 @@
 package com.jrh.traffic.receiver;
 
+import java.util.List;
+
+import com.jrh.traffic.model.AppInfo;
+import com.jrh.traffic.util.AppManager;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +16,16 @@ import android.net.wifi.WifiManager;
  *
  */
 public class WifiStateReceiver extends BroadcastReceiver{
+	private long mFlag;
+	private List<AppInfo> mAppList;
+	private AppManager mAppManager;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		mAppManager = new AppManager();
+		mAppList = mAppManager.getNetworkAppMap(context);
+		
 		// TODO Auto-generated method stub
-		// 数据保存操作
 		if (intent.getAction()
 				.equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
 			int wifistate = intent.getIntExtra(
@@ -23,7 +33,7 @@ public class WifiStateReceiver extends BroadcastReceiver{
 					WifiManager.WIFI_STATE_DISABLED);
 			if (wifistate == WifiManager.WIFI_STATE_DISABLED) {
 				// 结余本次wifi过程中 uid应用的 流量
-
+				
 			} else if (wifistate == WifiManager.WIFI_STATE_ENABLED) {
 				// 记录当前uid应用的流量
 

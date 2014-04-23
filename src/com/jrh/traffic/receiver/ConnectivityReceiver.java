@@ -29,6 +29,8 @@ public class ConnectivityReceiver extends BroadcastReceiver {
 		if (wifi != null && conn != null && State.CONNECTED != wifi
 				&& State.CONNECTED != conn) {
 			// 数据保存操作
+			
+			
 		}
 	}
 }

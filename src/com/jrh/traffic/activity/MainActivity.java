@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mContext = this;
+		mAppManager = new AppManager();
 
 		mListView = (ListView) findViewById(R.id.applist);
 		mListAdapter = new ListAdapter(mContext, mAppManager.getAllApps());
