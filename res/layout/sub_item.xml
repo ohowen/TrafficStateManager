@@ -5,40 +5,29 @@
     android:background="#FFF" >
 
     <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/gprs"
+        android:layout_alignBottom="@+id/gprs"
+        android:text="List" />
+
+    <TextView
         android:id="@+id/alltraffic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="20dp"
         android:text="0M" />
-
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="14dp"
-        android:src="@drawable/ic_launcher" />
-
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@id/img"
-        android:text="List" />
 
     <TextView
         android:id="@+id/gprs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/alltraffic"
-        android:layout_alignBottom="@id/alltraffic"
-        android:layout_marginRight="32dp"
-        android:layout_toLeftOf="@id/alltraffic"
+        android:layout_alignBaseline="@+id/alltraffic"
+        android:layout_alignBottom="@+id/alltraffic"
+        android:layout_marginRight="78dp"
+        android:layout_toLeftOf="@+id/alltraffic"
         android:text="2g/3g" />
 
     <TextView
@@ -47,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/gprs"
         android:layout_alignBottom="@+id/gprs"
-        android:layout_centerHorizontal="true"
+        android:layout_marginRight="70dp"
+        android:layout_toLeftOf="@+id/gprs"
         android:text="wifi" />
 
 </RelativeLayout>

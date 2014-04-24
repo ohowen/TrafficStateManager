@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jrh.traffic.model.AppInfo;
 import com.jrh.traffic.util.AppManager;
+import com.jrh.traffic.util.SingleAppList;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,12 +31,12 @@ public class WifiStateReceiver extends BroadcastReceiver {
 			if (wifistate == WifiManager.WIFI_STATE_DISABLED) {
 				// wifi关闭，再次读取系统文件，结余本次wifi过程中 uid应用的 流量，要考虑到有应用被安装和卸载的情况
 				mAppListWifiOff = mAppManager.getNetworkAppList(context);
-				mAppListWifiOn = mAppManager.getAppList();
+				SingleAppList.getInstance();
+				mAppListWifiOn = SingleAppList.getAppList();
 				for (int i = 0; i < mAppListWifiOff.size(); i++) {
 					for (int j = 0; j < mAppListWifiOn.size(); j++) {
 						if (mAppListWifiOff.get(i).getPkgname()
 						        .equals(mAppListWifiOn.get(j).getPkgname())) {
-							System.out.println(mAppListWifiOff.get(i).getPkgname()+mAppListWifiOn.get(j).getPkgname());
 							mAppListWifiOff.get(i).setWifi(
 							        mAppListWifiOff.get(i).getAlltraffic()
 							                - mAppListWifiOn.get(j).getTemp());
@@ -53,7 +54,8 @@ public class WifiStateReceiver extends BroadcastReceiver {
 					mAppListWifiOn.get(i).setTemp(
 					        mAppListWifiOn.get(i).getAlltraffic());
 				}
-				mAppManager.setAppList(mAppListWifiOn);
+				SingleAppList.getInstance();
+				SingleAppList.setAppList(mAppListWifiOn);
 			}
 		}
 	}

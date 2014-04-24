@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListAdapter extends BaseAdapter{
@@ -58,7 +57,7 @@ public class ListAdapter extends BaseAdapter{
 		if(convertView == null){
 			viewHolder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.sub_item, null);
-			viewHolder.img = (ImageView) convertView.findViewById(R.id.img);
+		//	viewHolder.img = (ImageView) convertView.findViewById(R.id.img);
 			viewHolder.label = (TextView) convertView.findViewById(R.id.label);
 			viewHolder.wifi = (TextView) convertView.findViewById(R.id.wifi);
 			viewHolder.gprs = (TextView) convertView.findViewById(R.id.gprs);
@@ -68,7 +67,7 @@ public class ListAdapter extends BaseAdapter{
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		AppInfo appInfo = mList.get(position);
-		viewHolder.img.setImageDrawable(appInfo.getImg());
+		//viewHolder.img.setImageDrawable(appInfo.getImg());
 		viewHolder.label.setText(appInfo.getLabel());
 		viewHolder.wifi.setText(String.valueOf(appInfo.getWifi()));
 		viewHolder.gprs.setText(String.valueOf(appInfo.getGprs()));
@@ -77,7 +76,7 @@ public class ListAdapter extends BaseAdapter{
 	}
 	
 	private static class ViewHolder{
-		ImageView img;
+		//ImageView img;
 		TextView label;
 		TextView wifi;
 		TextView gprs;
