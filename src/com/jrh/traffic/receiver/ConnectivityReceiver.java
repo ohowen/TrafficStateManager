@@ -9,7 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 
 /**
- * 在网络连接断开时，把统计的应用流量使用情况保存到数据库
+ * 鍦ㄧ綉缁滆繛鎺ユ柇寮�鏃讹紝鎶婄粺璁＄殑搴旂敤娴侀噺浣跨敤鎯呭喌淇濆瓨鍒版暟鎹簱
  * 
  * @author Rio
  * 
@@ -28,10 +28,10 @@ public class ConnectivityReceiver extends BroadcastReceiver {
 		mMobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
 		mAppManager = new AppManager(context);
 
-		// 表示手机此时没有任何网络连接
+		// 琛ㄧず鎵嬫満姝ゆ椂娌℃湁浠讳綍缃戠粶杩炴帴
 		if (mWifi != null && mMobile != null && State.CONNECTED != mWifi
 				&& State.CONNECTED != mMobile) {
-			// 数据保存操作
+			// 鏁版嵁淇濆瓨鎿嶄綔
 			mAppManager.saveDataToDB();
 		}
 	}

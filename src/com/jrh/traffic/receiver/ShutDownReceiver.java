@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 /**
- * 在关机前 把统计的应用流量使用情况保存到数据库
+ * 鍦ㄥ叧鏈哄墠 鎶婄粺璁＄殑搴旂敤娴侀噺浣跨敤鎯呭喌淇濆瓨鍒版暟鎹簱
  * @author Rio
  *
  */

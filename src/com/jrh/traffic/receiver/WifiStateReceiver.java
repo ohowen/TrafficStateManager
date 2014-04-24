@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.net.wifi.WifiManager;
 
 /**
- * ¼àÌıwifi¿ªÆôºÍ¹Ø±ÕµÄÇé¿ö
+ * ç›‘å¬wifiå¼€å¯å’Œå…³é—­çš„æƒ…å†µ
  * 
  * @author Rio
  * 
@@ -28,13 +28,14 @@ public class WifiStateReceiver extends BroadcastReceiver {
 			        WifiManager.WIFI_STATE_DISABLED);
 			mAppManager = new AppManager(context);
 			if (wifistate == WifiManager.WIFI_STATE_DISABLED) {
-				// wifi¹Ø±Õ£¬ÔÙ´Î¶ÁÈ¡ÏµÍ³ÎÄ¼ş£¬½áÓà±¾´Îwifi¹ı³ÌÖĞ uidÓ¦ÓÃµÄ Á÷Á¿£¬Òª¿¼ÂÇµ½ÓĞÓ¦ÓÃ±»°²×°ºÍĞ¶ÔØµÄÇé¿ö
+				// wifiå…³é—­ï¼Œå†æ¬¡è¯»å–ç³»ç»Ÿæ–‡ä»¶ï¼Œç»“ä½™æœ¬æ¬¡wifiè¿‡ç¨‹ä¸­ uidåº”ç”¨çš„ æµé‡ï¼Œè¦è€ƒè™‘åˆ°æœ‰åº”ç”¨è¢«å®‰è£…å’Œå¸è½½çš„æƒ…å†µ
 				mAppListWifiOff = mAppManager.getNetworkAppList(context);
 				mAppListWifiOn = mAppManager.getAppList();
 				for (int i = 0; i < mAppListWifiOff.size(); i++) {
 					for (int j = 0; j < mAppListWifiOn.size(); j++) {
 						if (mAppListWifiOff.get(i).getPkgname()
 						        .equals(mAppListWifiOn.get(j).getPkgname())) {
+							System.out.println(mAppListWifiOff.get(i).getPkgname()+mAppListWifiOn.get(j).getPkgname());
 							mAppListWifiOff.get(i).setWifi(
 							        mAppListWifiOff.get(i).getAlltraffic()
 							                - mAppListWifiOn.get(j).getTemp());
@@ -46,13 +47,13 @@ public class WifiStateReceiver extends BroadcastReceiver {
 				mAppManager.setAppList(mAppListWifiOff);
 				mAppManager.saveDataToDB();
 			} else if (wifistate == WifiManager.WIFI_STATE_ENABLED) {
-				// wifi¿ªÆô£¬Ê×ÏÈ¶ÁÈ¡ÏµÍ³ÎÄ¼ş£¬»ñÈ¡µ±Ç°uidÓ¦ÓÃµÄÁ÷Á¿
+				// wifiå¼€å¯ï¼Œé¦–å…ˆè¯»å–ç³»ç»Ÿæ–‡ä»¶ï¼Œè·å–å½“å‰uidåº”ç”¨çš„æµé‡
 				mAppListWifiOn = mAppManager.getNetworkAppList(context);
-				mAppManager.setAppList(mAppListWifiOn);
 				for (int i = 0; i < mAppListWifiOn.size(); i++) {
 					mAppListWifiOn.get(i).setTemp(
 					        mAppListWifiOn.get(i).getAlltraffic());
 				}
+				mAppManager.setAppList(mAppListWifiOn);
 			}
 		}
 	}

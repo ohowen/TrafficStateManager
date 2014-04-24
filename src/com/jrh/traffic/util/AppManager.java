@@ -108,7 +108,7 @@ public class AppManager {
 				dbw.execSQL(update, new Object[] { wifi, alltraffic, pkgname });
 			}
 			cursor.close();
-			// Çå³ý»º´æÊý¾Ý
+			// æ¸…é™¤ç¼“å­˜
 			this.appList = null;
 		} else {
 			initDB();
