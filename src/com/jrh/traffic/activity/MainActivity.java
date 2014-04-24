@@ -2,7 +2,7 @@ package com.jrh.traffic.activity;
 
 import com.jrh.traffic.adapter.ListAdapter;
 import com.jrh.traffic.util.AppManager;
-import com.jrh.trafficstatemanager.R;
+import com.jrh.traffic.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,10 +21,23 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mContext = this;
-		mAppManager = new AppManager();
-
+		mAppManager = new AppManager(mContext);
+		
 		mListView = (ListView) findViewById(R.id.applist);
 		mListAdapter = new ListAdapter(mContext, mAppManager.getAllApps());
 		mListView.setAdapter(mListAdapter);
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		mListAdapter.changed(mAppManager.getAllApps());
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
 	}
 }

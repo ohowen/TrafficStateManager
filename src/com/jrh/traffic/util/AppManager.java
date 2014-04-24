@@ -2,21 +2,32 @@ package com.jrh.traffic.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.TrafficStats;
-import android.text.format.Formatter;
 
 import com.jrh.traffic.model.AppInfo;
 
 public class AppManager {
-	private static DBOpenHelper dbOpenHelper;
-	private SQLiteDatabase db;
+	private DBOpenHelper dbOpenHelper;
 	private AppInfo appInfo;
 	private List<AppInfo> appList;
+
+	public AppManager(Context context) {
+		this.dbOpenHelper = new DBOpenHelper(context);
+	}
+
+	public List<AppInfo> getAppList() {
+		return appList;
+	}
+
+	public void setAppList(List<AppInfo> appList) {
+		this.appList = appList;
+	}
 
 	/**
 	 * Get all app which have network access permission from a device
@@ -27,9 +38,9 @@ public class AppManager {
 	public List<AppInfo> getNetworkAppList(Context context) {
 		PackageManager pm = context.getPackageManager();
 		List<PackageInfo> pinfos = pm
-				.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES
-						| PackageManager.GET_PERMISSIONS);
-		List<AppInfo> appList = new ArrayList<AppInfo>();
+		        .getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES
+		                | PackageManager.GET_PERMISSIONS);
+		appList = new ArrayList<AppInfo>();
 		for (PackageInfo info : pinfos) {
 			String[] premissions = info.requestedPermissions;
 			if (premissions != null && premissions.length > 0) {
@@ -38,7 +49,7 @@ public class AppManager {
 						int uId = info.applicationInfo.uid;
 						long rx = TrafficStats.getUidRxBytes(uId);
 						long tx = TrafficStats.getUidTxBytes(uId);
-						long all = rx + tx;
+						long alltraffic = rx + tx;
 						if (rx < 0 || tx < 0) {
 							continue;
 						} else {
@@ -46,10 +57,13 @@ public class AppManager {
 							AppInfo appInfo = new AppInfo();
 							appInfo.setUid(String.valueOf(uId));
 							appInfo.setLabel(info.applicationInfo.loadLabel(pm)
-									.toString());
+							        .toString());
 							appInfo.setPkgname(pkgName);
-							appInfo.setAlltraffic(Formatter.formatFileSize(
-									context, all));
+							/*
+							 * appInfo.setAlltraffic(Formatter.formatFileSize(
+							 * context, all));
+							 */
+							appInfo.setAlltraffic(alltraffic);
 							appList.add(appInfo);
 						}
 					}
@@ -60,29 +74,46 @@ public class AppManager {
 	}
 
 	/**
-	 * Save appInfo in a cache
+	 * Database initially
+	 * 
 	 * @param appList
 	 */
-	public void saveData(List<AppInfo> appList) {
-		this.appList = appList; 
+	public void initDB() {
+		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
+		String sql = "insert into appInfo(uid,pkgName,label,wifi,gprs,alltraffic) values(?,?,?,?,?,?) ";
+		for (int i = 0; i < appList.size(); i++) {
+			appInfo = appList.get(i);
+			String uid = appInfo.getUid();
+			String pkgname = appInfo.getPkgname();
+			String label = appInfo.getLabel();
+			db.execSQL(sql, new Object[] { uid, pkgname, label, 0, 0, 0 });
+		}
+		appList = null;
 	}
 
 	/**
 	 * Save a specific app's traffic data to database
 	 */
 	public void saveDataToDB() {
-		db = dbOpenHelper.getWritableDatabase();
-		String sql = "update appInfo...";
-		for (int i = 0; i < appList.size(); i++) {
-			appInfo = appList.get(i);
-			String pkgName = appInfo.getPkgname();
-			String label = appInfo.getLabel();
-			String wifi = appInfo.getWifi();
-			String gprs = appInfo.getGprs();
-			db.execSQL(sql, new Object[] { pkgName, label, wifi, gprs });
+		SQLiteDatabase dbw = dbOpenHelper.getWritableDatabase();
+		SQLiteDatabase dbr = dbOpenHelper.getWritableDatabase();
+		String update = "update appInfo set wifi=wifi+?,alltraffic=? where pkgName=?";
+		Cursor cursor = dbr.rawQuery("select * from appInfo", null);
+		if (cursor.getCount() > 0) {
+			for (int i = 0; i < appList.size(); i++) {
+				appInfo = appList.get(i);
+				String pkgname = appInfo.getPkgname();
+				long wifi = appInfo.getWifi();
+				long alltraffic = appInfo.getAlltraffic();
+				dbw.execSQL(update, new Object[] { wifi, alltraffic, pkgname });
+			}
+			cursor.close();
+			// 清除缓存数据
+			this.appList = null;
+		} else {
+			initDB();
 		}
-		// 清除缓存数据
-		this.appList = null;
+
 	}
 
 	/**
@@ -94,13 +125,13 @@ public class AppManager {
 		List<AppInfo> appList = new ArrayList<AppInfo>();
 		SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("select * from appInfo order by gprs desc",
-				null);
+		        null);
 		while (cursor.moveToNext()) {
 			String label = cursor.getString(cursor.getColumnIndex("label"));
-			String wifi = cursor.getString(cursor.getColumnIndex("wifi"));
-			String gprs = cursor.getString(cursor.getColumnIndex("gprs"));
-			String alltraffic = cursor.getString(cursor
-					.getColumnIndex("alltraffic"));
+			long wifi = cursor.getLong(cursor.getColumnIndex("wifi"));
+			long alltraffic = cursor.getLong(cursor
+			        .getColumnIndex("alltraffic"));
+			long gprs = alltraffic - wifi;
 			appList.add(new AppInfo(label, wifi, gprs, alltraffic));
 		}
 		cursor.close();

@@ -3,7 +3,7 @@ package com.jrh.traffic.adapter;
 import java.util.List;
 
 import com.jrh.traffic.model.AppInfo;
-import com.jrh.trafficstatemanager.R;
+import com.jrh.traffic.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -70,9 +70,9 @@ public class ListAdapter extends BaseAdapter{
 		AppInfo appInfo = mList.get(position);
 		viewHolder.img.setImageDrawable(appInfo.getImg());
 		viewHolder.label.setText(appInfo.getLabel());
-		viewHolder.wifi.setText(appInfo.getWifi());
-		viewHolder.gprs.setText(appInfo.getGprs());
-		viewHolder.alltraffic.setText(appInfo.getAlltraffic());
+		viewHolder.wifi.setText(String.valueOf(appInfo.getWifi()));
+		viewHolder.gprs.setText(String.valueOf(appInfo.getGprs()));
+		viewHolder.alltraffic.setText(String.valueOf(appInfo.getAlltraffic()));
 		return convertView;
 	}
 	

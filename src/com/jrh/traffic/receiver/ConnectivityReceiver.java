@@ -26,7 +26,7 @@ public class ConnectivityReceiver extends BroadcastReceiver {
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		mWifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
 		mMobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
-		mAppManager = new AppManager();
+		mAppManager = new AppManager(context);
 
 		// 表示手机此时没有任何网络连接
 		if (mWifi != null && mMobile != null && State.CONNECTED != mWifi

@@ -10,7 +10,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	}
 
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE appInfo(appid integer primary key autoincrement, pkgName varchar(40), label VARCHAR(12),wifi VARCHAR(12),gprs VARCHAR(12),alltraffic VARCHAR(12),tag VARCHAR(12))");
+		db.execSQL("CREATE TABLE appInfo(appid integer primary key autoincrement,uid VARCHAR(12), pkgName varchar(40), label VARCHAR(12),wifi VARCHAR(12),gprs VARCHAR(12),alltraffic VARCHAR(12),tag VARCHAR(12))");
 	}
 
 	@Override

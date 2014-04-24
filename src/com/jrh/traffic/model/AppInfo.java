@@ -8,15 +8,16 @@ public class AppInfo {
 	private String uid = "uid";
 	private String pkgname = "pkgname";
 	private String label = "label";
-	private String alltraffic = "alltraffic";
-	private String gprs = "gprs";
-	private String wifi = "wifi";
+	private long alltraffic;
+	private long gprs;
+	private long wifi;
+	private long temp;
 	private String frequency = "frequency";
 	private String tag = "tag";
 	
 	public AppInfo(){}
 
-	public AppInfo(String label, String wifi, String gprs, String alltraffic) {
+	public AppInfo(String label, long wifi, long gprs, long alltraffic) {
 		this.label = label;
 		this.wifi = wifi;
 		this.gprs = gprs;
@@ -55,28 +56,36 @@ public class AppInfo {
 		this.label = label;
 	}
 
-	public String getAlltraffic() {
+	public long getAlltraffic() {
 		return alltraffic;
 	}
 
-	public void setAlltraffic(String alltraffic) {
+	public void setAlltraffic(long alltraffic) {
 		this.alltraffic = alltraffic;
 	}
 
-	public String getGprs() {
+	public long getGprs() {
 		return gprs;
 	}
 
-	public void setGprs(String gprs) {
+	public void setGprs(long gprs) {
 		this.gprs = gprs;
 	}
 
-	public String getWifi() {
+	public long getWifi() {
 		return wifi;
 	}
 
-	public void setWifi(String wifi) {
+	public void setWifi(long wifi) {
 		this.wifi = wifi;
+	}
+
+	public long getTemp() {
+		return temp;
+	}
+
+	public void setTemp(long temp) {
+		this.temp = temp;
 	}
 
 	public String getFrequency() {
