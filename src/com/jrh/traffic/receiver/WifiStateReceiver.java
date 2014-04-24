@@ -53,7 +53,6 @@ public class WifiStateReceiver extends BroadcastReceiver {
 					mAppListWifiOn.get(i).setTemp(
 					        mAppListWifiOn.get(i).getAlltraffic());
 				}
-				mAppManager.setAppList(mAppListWifiOn);
 			}
 		}
 	}
