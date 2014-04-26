@@ -21,10 +21,6 @@ public class AppManager {
 		this.dbOpenHelper = new DBOpenHelper(context);
 	}
 
-	public List<AppInfo> getAppList() {
-		return appList;
-	}
-
 	public void setAppList(List<AppInfo> appList) {
 		this.appList = appList;
 	}
@@ -80,13 +76,13 @@ public class AppManager {
 	 */
 	public void initDB() {
 		SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
-		String sql = "insert into appInfo(uid,pkgName,label,wifi,gprs,alltraffic) values(?,?,?,?,?,?) ";
+		String sql = "insert into appInfo(uid,pkgName,label,wifi,gprs,alltraffic,temp) values(?,?,?,?,?,?,?) ";
 		for (int i = 0; i < appList.size(); i++) {
 			appInfo = appList.get(i);
 			String uid = appInfo.getUid();
 			String pkgname = appInfo.getPkgname();
 			String label = appInfo.getLabel();
-			db.execSQL(sql, new Object[] { uid, pkgname, label, 0, 0, 0 });
+			db.execSQL(sql, new Object[] { uid, pkgname, label, 0, 0, 0, 0 });
 		}
 		appList = null;
 	}
@@ -97,7 +93,7 @@ public class AppManager {
 	public void saveDataToDB() {
 		SQLiteDatabase dbw = dbOpenHelper.getWritableDatabase();
 		SQLiteDatabase dbr = dbOpenHelper.getWritableDatabase();
-		String update = "update appInfo set wifi=wifi+?,alltraffic=? where pkgName=?";
+		String update = "update appInfo set wifi=wifi+?,gprs=gprs+?,alltraffic=?,temp=? where pkgName=?";
 		Cursor cursor = dbr.rawQuery("select * from appInfo", null);
 		if (cursor.getCount() > 0) {
 			for (int i = 0; i < appList.size(); i++) {
@@ -105,7 +101,10 @@ public class AppManager {
 				String pkgname = appInfo.getPkgname();
 				long wifi = appInfo.getWifi();
 				long alltraffic = appInfo.getAlltraffic();
-				dbw.execSQL(update, new Object[] { wifi, alltraffic, pkgname });
+				long gprs = appInfo.getGprs();
+				long temp = appInfo.getTemp();
+				dbw.execSQL(update, new Object[] { wifi, gprs, alltraffic,
+				        temp, pkgname });
 			}
 			cursor.close();
 			// 清除缓存
@@ -128,11 +127,14 @@ public class AppManager {
 		        null);
 		while (cursor.moveToNext()) {
 			String label = cursor.getString(cursor.getColumnIndex("label"));
+			String pkgname = cursor.getString(cursor.getColumnIndex("pkgName"));
 			long wifi = cursor.getLong(cursor.getColumnIndex("wifi"));
 			long alltraffic = cursor.getLong(cursor
 			        .getColumnIndex("alltraffic"));
-			long gprs = alltraffic - wifi;
-			appList.add(new AppInfo(label, wifi, gprs, alltraffic));
+			long gprs = cursor.getLong(cursor.getColumnIndex("gprs"));
+			long temp = cursor.getLong(cursor.getColumnIndex("temp"));
+			appList.add(new AppInfo(pkgname, label, wifi, gprs, alltraffic,
+			        temp));
 		}
 		cursor.close();
 		return appList;

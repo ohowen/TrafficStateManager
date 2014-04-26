@@ -14,14 +14,18 @@ public class AppInfo {
 	private long temp;
 	private String frequency = "frequency";
 	private String tag = "tag";
-	
-	public AppInfo(){}
 
-	public AppInfo(String label, long wifi, long gprs, long alltraffic) {
+	public AppInfo() {
+	}
+
+	public AppInfo(String pkgName, String label, long wifi, long gprs,
+	        long alltraffic, long temp) {
+		this.pkgname = pkgName;
 		this.label = label;
 		this.wifi = wifi;
 		this.gprs = gprs;
 		this.alltraffic = alltraffic;
+		this.temp = temp;
 	}
 
 	public String getUid() {
