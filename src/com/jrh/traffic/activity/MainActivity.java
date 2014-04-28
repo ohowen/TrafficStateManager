@@ -2,7 +2,6 @@ package com.jrh.traffic.activity;
 
 import com.jrh.traffic.adapter.ListAdapter;
 import com.jrh.traffic.util.AppManager;
-import com.jrh.traffic.util.SingleAppList;
 import com.jrh.traffic.R;
 
 import android.app.Activity;
